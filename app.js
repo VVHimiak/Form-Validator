@@ -30,34 +30,30 @@ function checkRequiredFields(inputArr){
   });
 }
 
+//Create function checkRequired
+function checkLength(input, min, max){
+  if(input.value.length < min){
+    showError(input, `${input.dataset.name} must contains minimum ${min} characters`[0].toUpperCase() + `${input.dataset.name} must contains minimum ${min} letters`.slice(1));
+  } else if(input.value.length > max){
+    showError(input, `${input.dataset.name} must contains maximum ${max} characters`[0].toUpperCase() + `${input.dataset.name} must contains maximum ${max} letters`.slice(1));
+  } else{
+    showSuccess(input)
+  }
+}
+
+function checkPassword(input1, input2){
+  if(input1.value !== input2.value){
+    showError(input2, 'Passwords do not match');
+  }
+}
 
 //EventListeners
 UIform.addEventListener('submit', function(e){
-  //user name validation
-  // if(UIuserNameInput.value === ''){
-  //   showError(UIuserNameInput, 'UserName is required');
-  // }else{
-  //  showSuccess(UIuserNameInput)
-  // }
-  // //user email validation
-  // if(!isValidEmail(UIuserEmailInput.value)){
-  //   showError(UIuserEmailInput, 'UserEmail is required');
-  // }else{
-  //  showSuccess(UIuserEmailInput)
-  // }
-  // //user password validation
-  // if(UIuserPasswordInput.value === ''){
-  //   showError(UIuserPasswordInput, 'UserPassword is required');
-  // }else{
-  //  showSuccess(UIuserPasswordInput)
-  // }
-  // //user password check validation
-  // if(UIuserPasswordCheckInput.value === ''){
-  //   showError(UIuserPasswordCheckInput, 'UserPassword check is required');
-  // }else{
-  //  showSuccess(UIuserPasswordCheckInput)
-  // }
+  
 checkRequiredFields([UIuserNameInput, UIuserEmailInput,UIuserPasswordInput,UIuserPasswordCheckInput]);
+checkLength(UIuserNameInput, 3, 15);
+checkLength(UIuserPasswordInput, 6, 20);
+checkPassword(UIuserPasswordInput, UIuserPasswordCheckInput);
 
   e.preventDefault();
 })
